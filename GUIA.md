@@ -20,23 +20,23 @@ Marca ✅ cuando un bloque esté cerrado.
 
 - [x] **Bloque 1 — Estructura + Menú principal**
       Carpetas del proyecto, menú principal minimalista, navegación entre
-      pantallas (Jugar, Amigos, Configuración, Créditos). *(este bloque)*
+      pantallas (Jugar, Amigos, Configuración, Créditos).
 
-- [ ] **Bloque 2 — Pantalla de juego (modo práctica/local)**
+- [x] **Bloque 2 — Pantalla de juego (modo práctica/local)**
       UI de ronda: frase con hueco, input de palabra, temporizador, contador de
       rondas. Jugable en local sin red para validar la sensación.
 
-- [ ] **Bloque 3 — Motor de puntuación**
+- [x] **Bloque 3 — Motor de puntuación**
       Cálculo de puntos: longitud + rareza + velocidad + adecuación.
-      Banco de frases y diccionario de frecuencias en español.
+      Banco de frases y listas de frecuencia en español.
 
-- [ ] **Bloque 4 — Servidor multijugador**
-      Node + WebSocket. Salas con código de 4-6 dígitos. Sincronización de
-      rondas y estado entre los dos jugadores.
+- [x] **Bloque 4 — Servidor multijugador**
+      Node + WebSocket. Salas con código de 4 letras. Sincronización de
+      rondas y estado entre los dos jugadores. Reusa el motor del cliente.
 
-- [ ] **Bloque 5 — Cliente online**
+- [x] **Bloque 5 — Cliente online**
       Conectar el cliente al servidor: crear/unirse a sala, jugar 1v1 real,
-      ver puntuación del rival ronda a ronda.
+      ver la palabra y puntuación del rival ronda a ronda. *(jugable ya)*
 
 - [ ] **Bloque 6 — Amigos, Configuración y Créditos completos**
       Lista de amigos, ajustes (sonido, vibración, tema, idioma), créditos.
@@ -63,21 +63,22 @@ DosLos/
 ├── css/
 │   └── styles.css      # Estilos globales (tema oscuro minimalista)
 ├── js/
-│   ├── app.js          # Arranque y router de pantallas
-│   └── screens/        # Lógica por pantalla (se irá llenando)
+│   ├── app.js          # Router de pantallas
+│   └── game/
+│       ├── content.js  # Banco de frases + frecuencias (isomorfo)
+│       ├── scoring.js  # Motor de puntuación (isomorfo cliente/servidor)
+│       ├── game.js     # Partida modo práctica (local)
+│       └── online.js   # Cliente multijugador (WebSocket)
+├── server/
+│   ├── server.js       # Servidor web + WebSocket (salas, rondas)
+│   └── package.json
 ├── assets/             # Imágenes, iconos, sonidos
 ├── GUIA.md             # Esta guía
+├── JUGAR.md            # Cómo jugar / desplegar
 └── README.md
 ```
 
-## ▶️ Cómo probarlo en local
+## ▶️ Cómo probarlo
 
-Abre `index.html` directamente en el navegador, o sirve la carpeta:
-
-```bash
-npx serve .
-# o
-python -m http.server 8000
-```
-
-Luego entra en http://localhost:8000
+- **Práctica (tú solo):** abre `index.html` o sirve la carpeta (`npx serve .`).
+- **Multijugador 1v1:** levanta el servidor y conéctate. Ver **[`JUGAR.md`](JUGAR.md)**.

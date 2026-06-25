@@ -15,7 +15,9 @@
 (function () {
   "use strict";
 
-  const DosLos = (window.DosLos = window.DosLos || {});
+  // Isomorfo: navegador (window) y Node (globalThis). El servidor usa el mismo
+  // motor de puntuación que el cliente.
+  const DosLos = (globalThis.DosLos = globalThis.DosLos || {});
 
   // Pesos de cada factor. Suman 1. Tunéalos para balancear el juego.
   const WEIGHTS = {

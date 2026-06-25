@@ -1,0 +1,13 @@
+{
+  "name": "doslos-server",
+  "version": "0.1.0",
+  "description": "Servidor multijugador de DosLos (web + WebSocket).",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

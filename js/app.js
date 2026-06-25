@@ -25,24 +25,11 @@
     }
   }
 
-  // Maqueta: botones que aún no tienen pantalla propia.
-  const PLACEHOLDERS = {
-    "create-room": "Crear sala — disponible en el Bloque 4 (multijugador).",
-    "join-room": "Unirse con código — disponible en el Bloque 4 (multijugador).",
-  };
-
   // Delegación de eventos: cualquier elemento con data-go navega.
   document.addEventListener("click", (e) => {
     const el = e.target.closest("[data-go]");
     if (!el) return;
     const dest = el.dataset.go;
-
-    if (PLACEHOLDERS[dest]) {
-      // De momento avisamos en lugar de navegar.
-      console.log(`[DosLos] ${PLACEHOLDERS[dest]}`);
-      flash(el);
-      return;
-    }
 
     // Modo práctica: arranca la partida y muestra la pantalla de juego.
     if (dest === "practice") {
@@ -51,8 +38,30 @@
       return;
     }
 
+    // Online: crear sala.
+    if (dest === "create-room") {
+      show("online");
+      window.DosLos.online.create();
+      return;
+    }
+
+    // Online: unirse con código.
+    if (dest === "join-room") {
+      show("online");
+      window.DosLos.online.join();
+      return;
+    }
+
     show(dest);
   });
+
+  // Al salir de la pantalla online con el botón atrás, cerramos la sala.
+  const onlineBack = document.getElementById("online-back");
+  if (onlineBack) {
+    onlineBack.addEventListener("click", () => {
+      if (window.DosLos && window.DosLos.online) window.DosLos.online.leave();
+    });
+  }
 
   // Pequeño feedback visual al pulsar una maqueta.
   function flash(el) {

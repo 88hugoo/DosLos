@@ -9,7 +9,9 @@
 (function () {
   "use strict";
 
-  const DosLos = (window.DosLos = window.DosLos || {});
+  // Isomorfo: funciona en navegador (window) y en Node (globalThis) para que
+  // el servidor reuse exactamente el mismo banco de frases.
+  const DosLos = (globalThis.DosLos = globalThis.DosLos || {});
 
   /* ---------------------------------------------------------------------
      FRASES
