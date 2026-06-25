@@ -302,6 +302,158 @@ body {
 .credits-by strong { color: var(--text); }
 .credits-small { font-size: 13px; opacity: 0.8; }
 
+/* ============================ PANTALLA DE JUEGO ============================ */
+
+.game-shell {
+  position: relative;
+  width: 100%;
+  max-width: var(--maxw);
+}
+
+.game {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+/* Barra superior */
+.game-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+.round-label { color: var(--text-dim); font-size: 14px; font-weight: 600; letter-spacing: 0.5px; }
+.score-label { color: var(--accent-2); font-size: 16px; font-weight: 700; }
+
+/* Barra de tiempo */
+.time-bar {
+  height: 6px;
+  background: var(--surface);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.time-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  border-radius: 999px;
+  /* el ancho lo controla el JS; transición suave para el último tramo */
+}
+
+/* Frase con hueco */
+.phrase-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 30px 22px;
+  min-height: 140px;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow);
+}
+.phrase {
+  font-size: clamp(20px, 5.6vw, 26px);
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+.blank {
+  display: inline-block;
+  min-width: 90px;
+  border-bottom: 3px solid var(--accent);
+  margin: 0 4px;
+  text-align: center;
+  vertical-align: bottom;
+  line-height: 1.2;
+}
+.blank.filled {
+  color: var(--accent-2);
+  border-bottom-color: var(--accent-2);
+  font-weight: 700;
+}
+
+/* Formulario de respuesta */
+.answer-form { display: flex; gap: 10px; }
+.answer-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 18px;
+  padding: 16px 18px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.answer-input:focus { border-color: var(--accent); }
+.answer-submit { flex: 0 0 auto; }
+
+/* Tarjeta de resultado de ronda */
+.result-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 26px 22px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  animation: pop 0.28s ease;
+}
+@keyframes pop { from { transform: scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.result-phrase { font-size: 18px; line-height: 1.5; color: var(--text-dim); margin-bottom: 16px; }
+.result-points {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent-2);
+  margin-bottom: 18px;
+}
+.result-invalid { color: var(--danger); font-weight: 600; }
+
+.factors { display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.factor-row { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 10px; }
+.factor-name { font-size: 13px; color: var(--text-dim); }
+.factor-bar { height: 8px; background: var(--surface); border-radius: 999px; overflow: hidden; }
+.factor-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Pantalla final */
+.final-head { text-align: center; }
+.final-label { color: var(--text-dim); font-size: 14px; letter-spacing: 0.5px; }
+.final-total { font-size: 56px; font-weight: 800; color: var(--accent-2); line-height: 1.1; }
+.final-sub { color: var(--text-dim); font-size: 13px; }
+
+.final-list {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  max-height: 38vh;
+  overflow-y: auto;
+}
+.final-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.final-row:last-child { border-bottom: none; }
+.final-round { color: var(--text-dim); font-size: 13px; }
+.final-word { font-weight: 600; }
+.final-pts { color: var(--accent-2); font-weight: 700; }
+
+.final-actions { display: flex; flex-direction: column; gap: 12px; }
+
 /* ----------------------------- Responsivo ----------------------------- */
 
 @media (max-height: 640px) {

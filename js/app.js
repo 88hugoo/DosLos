@@ -29,7 +29,6 @@
   const PLACEHOLDERS = {
     "create-room": "Crear sala — disponible en el Bloque 4 (multijugador).",
     "join-room": "Unirse con código — disponible en el Bloque 4 (multijugador).",
-    practice: "Modo práctica — llega en el Bloque 2.",
   };
 
   // Delegación de eventos: cualquier elemento con data-go navega.
@@ -44,6 +43,14 @@
       flash(el);
       return;
     }
+
+    // Modo práctica: arranca la partida y muestra la pantalla de juego.
+    if (dest === "practice") {
+      show("game");
+      window.DosLos.practice.start();
+      return;
+    }
+
     show(dest);
   });
 
