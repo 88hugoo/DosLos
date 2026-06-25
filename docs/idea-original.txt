@@ -1,0 +1,9 @@
+DosLos
+
+Es un juego, para móvil descargable y en web para pc y móvil también que vamos a ir construyendo juntos. El juego trata de un 1 contra 1 interconectados entre amigos cada uno desde su dispositivo, 10 rondas con el objetivo de completar cada ronda una frase que saldrá en la pantalla (misma frase para los dos jugadores) con un hueco que cabe una palabra que tendrán que rellenar los jugadores, depende de muchos factores como: 
+longitud de la palabra
+rareza de la palabra
+velocidad al ponerla en comparación al rival
+adecuación con la frase
+
+En base a esos requisitos determinan tu puntuación cada ronda.

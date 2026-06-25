@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0e0e12" />
+  <meta name="description" content="DosLos — duelo de palabras 1 contra 1 entre amigos." />
+  <title>DosLos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ======================= MENÚ PRINCIPAL ======================= -->
+    <section class="screen is-active" data-screen="menu">
+      <div class="menu">
+        <header class="brand">
+          <h1 class="logo"><span class="logo-dos">Dos</span><span class="logo-los">Los</span></h1>
+          <p class="tagline">Duelo de palabras · 1 contra 1</p>
+        </header>
+
+        <nav class="menu-actions">
+          <button class="btn btn-primary" data-go="play">
+            <span class="btn-icon">⚔️</span> Jugar
+          </button>
+          <button class="btn" data-go="friends">
+            <span class="btn-icon">👥</span> Amigos
+          </button>
+          <button class="btn" data-go="settings">
+            <span class="btn-icon">⚙️</span> Configuración
+          </button>
+          <button class="btn btn-ghost" data-go="credits">
+            <span class="btn-icon">✨</span> Créditos
+          </button>
+        </nav>
+
+        <footer class="menu-foot">
+          <span class="version">v0.1 · pre-alpha</span>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ======================= JUGAR ======================= -->
+    <section class="screen" data-screen="play">
+      <div class="panel">
+        <button class="back" data-go="menu" aria-label="Volver">‹</button>
+        <h2 class="panel-title">Jugar</h2>
+
+        <div class="stack">
+          <button class="btn btn-primary" data-go="create-room">
+            <span class="btn-icon">➕</span> Crear sala
+          </button>
+          <button class="btn" data-go="join-room">
+            <span class="btn-icon">🔑</span> Unirse con código
+          </button>
+          <button class="btn btn-ghost" data-go="practice">
+            <span class="btn-icon">🎯</span> Práctica (sin rival)
+          </button>
+        </div>
+
+        <p class="hint">El multijugador llega en el Bloque 4. De momento estos
+          botones son maquetas.</p>
+      </div>
+    </section>
+
+    <!-- ======================= AMIGOS ======================= -->
+    <section class="screen" data-screen="friends">
+      <div class="panel">
+        <button class="back" data-go="menu" aria-label="Volver">‹</button>
+        <h2 class="panel-title">Amigos</h2>
+        <div class="empty-state">
+          <span class="empty-emoji">👋</span>
+          <p>Aún no tienes amigos añadidos.</p>
+          <button class="btn btn-primary is-disabled" disabled>Añadir amigo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CONFIGURACIÓN ======================= -->
+    <section class="screen" data-screen="settings">
+      <div class="panel">
+        <button class="back" data-go="menu" aria-label="Volver">‹</button>
+        <h2 class="panel-title">Configuración</h2>
+
+        <ul class="settings-list">
+          <li class="setting-row">
+            <span>Sonido</span>
+            <label class="switch"><input type="checkbox" checked /><span class="track"></span></label>
+          </li>
+          <li class="setting-row">
+            <span>Vibración</span>
+            <label class="switch"><input type="checkbox" checked /><span class="track"></span></label>
+          </li>
+          <li class="setting-row">
+            <span>Tema oscuro</span>
+            <label class="switch"><input type="checkbox" checked /><span class="track"></span></label>
+          </li>
+          <li class="setting-row">
+            <span>Idioma</span>
+            <select class="select">
+              <option>Español</option>
+              <option>English</option>
+            </select>
+          </li>
+        </ul>
+        <p class="hint">Los ajustes se conectarán de verdad en el Bloque 6.</p>
+      </div>
+    </section>
+
+    <!-- ======================= CRÉDITOS ======================= -->
+    <section class="screen" data-screen="credits">
+      <div class="panel">
+        <button class="back" data-go="menu" aria-label="Volver">‹</button>
+        <h2 class="panel-title">Créditos</h2>
+        <div class="credits">
+          <p class="credits-game"><span class="logo-dos">Dos</span><span class="logo-los">Los</span></p>
+          <p>Un juego de palabras para jugar con amigos.</p>
+          <p class="credits-by">Creado por <strong>Hugo</strong></p>
+          <p class="credits-small">Hecho con ❤️ y mucho café.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

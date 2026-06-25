@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Builds / empaquetado (Capacitor, etc.)
+dist/
+build/
+android/
+ios/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Entorno
+.env
+.env.local
+
+# Mantener .claude fuera del repo
+.claude/
