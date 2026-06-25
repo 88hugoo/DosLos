@@ -55,14 +55,6 @@
     show(dest);
   });
 
-  // Al salir de la pantalla online con el botón atrás, cerramos la sala.
-  const onlineBack = document.getElementById("online-back");
-  if (onlineBack) {
-    onlineBack.addEventListener("click", () => {
-      if (window.DosLos && window.DosLos.online) window.DosLos.online.leave();
-    });
-  }
-
   // Pequeño feedback visual al pulsar una maqueta.
   function flash(el) {
     el.animate(
