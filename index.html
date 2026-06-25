@@ -85,28 +85,26 @@
         <button class="back" data-go="menu" aria-label="Volver">‹</button>
         <h2 class="panel-title">Configuración</h2>
 
+        <div class="name-field">
+          <label for="set-name">Tu nombre</label>
+          <input id="set-name" class="answer-input" type="text" maxlength="14"
+                 placeholder="¿Cómo te llamas?" autocomplete="off" />
+        </div>
+
         <ul class="settings-list">
           <li class="setting-row">
             <span>Sonido</span>
-            <label class="switch"><input type="checkbox" checked /><span class="track"></span></label>
+            <label class="switch"><input id="set-sound" type="checkbox" /><span class="track"></span></label>
           </li>
           <li class="setting-row">
             <span>Vibración</span>
-            <label class="switch"><input type="checkbox" checked /><span class="track"></span></label>
+            <label class="switch"><input id="set-vibration" type="checkbox" /><span class="track"></span></label>
           </li>
           <li class="setting-row">
             <span>Tema oscuro</span>
-            <label class="switch"><input type="checkbox" checked /><span class="track"></span></label>
-          </li>
-          <li class="setting-row">
-            <span>Idioma</span>
-            <select class="select">
-              <option>Español</option>
-              <option>English</option>
-            </select>
+            <label class="switch"><input id="set-theme" type="checkbox" /><span class="track"></span></label>
           </li>
         </ul>
-        <p class="hint">Los ajustes se conectarán de verdad en el Bloque 6.</p>
       </div>
     </section>
 
@@ -140,6 +138,7 @@
 
   </div>
 
+  <script src="js/game/store.js"></script>
   <script src="js/game/content.js"></script>
   <script src="js/game/scoring.js"></script>
   <script src="js/game/game.js"></script>

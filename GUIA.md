@@ -38,11 +38,14 @@ Marca ✅ cuando un bloque esté cerrado.
       Conectar el cliente al servidor: crear/unirse a sala, jugar 1v1 real,
       ver la palabra y puntuación del rival ronda a ronda. *(jugable ya)*
 
-- [ ] **Bloque 6 — Amigos, Configuración y Créditos completos**
-      Lista de amigos, ajustes (sonido, vibración, tema, idioma), créditos.
+- [~] **Bloque 6 — Amigos, Configuración y Créditos completos**
+      ✅ Configuración funcional (nombre de jugador, sonido, vibración, tema
+      claro/oscuro, persistido en el dispositivo). Pendiente: lista de amigos.
 
-- [ ] **Bloque 7 — Pulido visual**
-      Animaciones, transiciones, feedback de sonido, micro-interacciones.
+- [~] **Bloque 7 — Pulido visual**
+      ✅ Efectos de sonido (WebAudio), vibración, aviso de tiempo (barra roja),
+      récord en práctica, nombres reales en el "versus". Pendiente: más
+      animaciones y transiciones.
 
 - [ ] **Bloque 8 — Empaquetado y deploy**
       Deploy web (Netlify/Vercel/Pages) + Capacitor para Android/iOS.

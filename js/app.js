@@ -73,6 +73,49 @@
     }
   });
 
+  /* ----------------------------- Ajustes ----------------------------- */
+
+  function initSettings() {
+    const store = window.DosLos && window.DosLos.store;
+    if (!store) return;
+
+    store.applyTheme();
+
+    const s = store.read();
+    const name = document.getElementById("set-name");
+    const sound = document.getElementById("set-sound");
+    const vibration = document.getElementById("set-vibration");
+    const theme = document.getElementById("set-theme"); // marcado = oscuro
+
+    if (name) {
+      name.value = s.name || "";
+      name.addEventListener("input", () => store.set("name", name.value.trim()));
+    }
+    if (sound) {
+      sound.checked = s.sound;
+      sound.addEventListener("change", () => {
+        store.set("sound", sound.checked);
+        if (sound.checked) store.sound("submit"); // confirmación audible
+      });
+    }
+    if (vibration) {
+      vibration.checked = s.vibration;
+      vibration.addEventListener("change", () => {
+        store.set("vibration", vibration.checked);
+        if (vibration.checked) store.vibrate(30);
+      });
+    }
+    if (theme) {
+      theme.checked = s.theme !== "light";
+      theme.addEventListener("change", () => {
+        store.set("theme", theme.checked ? "dark" : "light");
+        store.applyTheme();
+      });
+    }
+  }
+
+  initSettings();
+
   // Pantalla inicial según el hash (permite recargar en una sub-pantalla).
   const initial = location.hash.replace("#", "") || "menu";
   show(initial);

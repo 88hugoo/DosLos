@@ -21,6 +21,18 @@
   let myCode = null;
   let roundStartTime = 0;
   let answered = false;
+  let myName = "Tú";
+  let rivalName = "Rival";
+
+  function playerName() {
+    const n = DosLos.store ? (DosLos.store.read().name || "").trim() : "";
+    return n || "Jugador";
+  }
+  function fx(kind, vib) {
+    if (!DosLos.store) return;
+    DosLos.store.sound(kind);
+    if (vib != null) DosLos.store.vibrate(vib);
+  }
 
   /* ----------------------------- helpers de UI ----------------------------- */
 
@@ -102,7 +114,7 @@
 
   function create() {
     root = document.getElementById("online-root");
-    connect(() => send("create", {}));
+    connect(() => send("create", { name: playerName() }));
   }
 
   function join() {
@@ -132,7 +144,7 @@
       e.preventDefault();
       const code = input.value.trim().toUpperCase();
       if (code.length < 3) return;
-      connect(() => send("join", { code }));
+      connect(() => send("join", { code, name: playerName() }));
     });
   }
 
@@ -185,6 +197,9 @@
   /* ----------------------------- sala (lobby) ----------------------------- */
 
   function renderLobby(msg) {
+    myName = msg.players[msg.you] || "Tú";
+    rivalName = msg.players[1 - msg.you] || "Rival";
+
     const box = el("div", "lobby");
     box.appendChild(el("p", "lobby-label", "Código de sala"));
     box.appendChild(el("div", "lobby-code", escapeHTML(msg.code)));
@@ -218,6 +233,7 @@
   function renderRound(msg) {
     answered = false;
     roundStartTime = performance.now();
+    if (msg.index === 0) fx("start");
 
     const top = el("div", "game-top");
     top.appendChild(el("span", "round-label", `Ronda ${msg.index + 1} / ${msg.total}`));
@@ -274,9 +290,11 @@
   function runTimer(fillEl, total, onEnd) {
     cancelAnimationFrame(rafId);
     const t0 = performance.now();
+    const bar = fillEl.parentElement;
     rafId = requestAnimationFrame(function tick(now) {
       const ratio = Math.max(0, 1 - (now - t0) / total);
       fillEl.style.width = ratio * 100 + "%";
+      if (bar) bar.classList.toggle("low", ratio <= 0.2);
       if (ratio <= 0) { onEnd(); return; }
       rafId = requestAnimationFrame(tick);
     });
@@ -286,6 +304,7 @@
     if (answered) return;
     answered = true;
     cancelAnimationFrame(rafId);
+    fx("submit", 20);
     const elapsedMs = performance.now() - roundStartTime;
     send("answer", { word: word.trim(), elapsedMs });
   }
@@ -294,17 +313,19 @@
 
   function renderResult(msg) {
     cancelAnimationFrame(rafId);
+    const win = msg.you.total > msg.rival.total;
+    const lose = msg.you.total < msg.rival.total;
+    fx(win ? "win" : lose ? "lose" : "submit", win ? [40, 60, 40] : 30);
+
     const card = el("div", "result-card");
 
-    const verdict =
-      msg.you.total > msg.rival.total ? "Ganas la ronda 🎉" :
-      msg.you.total < msg.rival.total ? "Pierdes la ronda" : "Empate";
+    const verdict = win ? "Ganas la ronda 🎉" : lose ? "Pierdes la ronda" : "Empate";
     card.appendChild(el("p", "result-verdict", verdict));
 
     const vs = el("div", "vs");
-    vs.appendChild(vsCol("Tú", msg.you, true));
+    vs.appendChild(vsCol(myName, msg.you, true));
     vs.appendChild(el("div", "vs-sep", "vs"));
-    vs.appendChild(vsCol("Rival", msg.rival, false));
+    vs.appendChild(vsCol(rivalName, msg.rival, false));
     card.appendChild(vs);
 
     card.appendChild(el("p", "vs-scoreline", `Marcador: ${msg.scores.you} · ${msg.scores.rival}`));
@@ -333,13 +354,16 @@
   /* ----------------------------- final ----------------------------- */
 
   function renderFinal(msg) {
+    fx(msg.result === "win" ? "win" : msg.result === "lose" ? "lose" : "submit",
+       msg.result === "win" ? [60, 80, 60] : 40);
+
     const head = el("div", "final-head");
     const title =
       msg.result === "win" ? "¡Has ganado! 🏆" :
       msg.result === "lose" ? "Has perdido" : "¡Empate!";
     head.appendChild(el("p", "final-label", title));
     head.appendChild(el("div", "final-total", `${msg.scores.you} · ${msg.scores.rival}`));
-    head.appendChild(el("p", "final-sub", "tú · rival"));
+    head.appendChild(el("p", "final-sub", `${escapeHTML(myName)} · ${escapeHTML(rivalName)}`));
 
     const actions = el("div", "final-actions");
     const menu = el("button", "btn btn-primary", "Volver al menú");

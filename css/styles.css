@@ -27,6 +27,7 @@
   --maxw:      420px;
 
   --shadow:    0 10px 30px rgba(0, 0, 0, 0.45);
+  --glow:      #1b1b28;   /* resplandor de fondo */
 
   /* Áreas seguras (notch en móvil) */
   --safe-top:    env(safe-area-inset-top, 0px);
@@ -42,12 +43,26 @@ html, body {
 body {
   font-family: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background:
-    radial-gradient(1200px 600px at 50% -10%, #1b1b28 0%, transparent 60%),
+    radial-gradient(1200px 600px at 50% -10%, var(--glow) 0%, transparent 60%),
     var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Tema claro */
+body.light {
+  --bg:        #f4f4f8;
+  --bg-soft:   #ffffff;
+  --surface:   #ececf2;
+  --surface-2: #e2e2ea;
+  --line:      #d9d9e2;
+  --text:      #16161d;
+  --text-dim:  #6a6a78;
+  --glow:      #e7e4ff;
+  --shadow:    0 10px 30px rgba(60, 50, 120, 0.12);
 }
 
 #app {
@@ -248,6 +263,9 @@ body {
 
 /* ----------------------------- Configuración ----------------------------- */
 
+.name-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.name-field label { font-size: 14px; color: var(--text-dim); padding-left: 4px; }
+
 .settings-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
 
 .setting-row {
@@ -342,6 +360,11 @@ body {
   border-radius: 999px;
   /* el ancho lo controla el JS; transición suave para el último tramo */
 }
+.time-bar.low .time-fill {
+  background: var(--danger);
+  animation: pulse 0.6s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: 0.5; } }
 
 /* Frase con hueco */
 .phrase-card {
@@ -429,6 +452,7 @@ body {
 .final-label { color: var(--text-dim); font-size: 14px; letter-spacing: 0.5px; }
 .final-total { font-size: 56px; font-weight: 800; color: var(--accent-2); line-height: 1.1; }
 .final-sub { color: var(--text-dim); font-size: 13px; }
+.final-record { margin-top: 6px; font-size: 14px; font-weight: 600; color: var(--accent); }
 
 .final-list {
   background: var(--bg-soft);

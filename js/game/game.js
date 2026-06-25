@@ -124,10 +124,12 @@
   function startTimer(fillEl, onTimeout) {
     const total = ROUND_SECONDS * 1000;
     const t0 = performance.now();
+    const bar = fillEl.parentElement;
     timer = requestAnimationFrame(function tick(now) {
       const elapsed = now - t0;
       const ratio = Math.max(0, 1 - elapsed / total);
       fillEl.style.width = ratio * 100 + "%";
+      if (bar) bar.classList.toggle("low", ratio <= 0.2);
       if (ratio <= 0) {
         clearTimer();
         onTimeout();
@@ -147,6 +149,10 @@
     const result = DosLos.scoring.scoreWord({ word, phrase, elapsedMs, rivalMs: null });
     state.total += result.total;
     state.results.push({ word: word.trim(), phrase, result });
+    if (DosLos.store) {
+      DosLos.store.sound(result.valid ? "submit" : "lose");
+      DosLos.store.vibrate(20);
+    }
     renderResult(word.trim(), phrase, result);
   }
 
@@ -205,10 +211,22 @@
   function renderFinal() {
     root.innerHTML = "";
 
+    let isRecord = false;
+    let best = state.total;
+    if (DosLos.store) {
+      isRecord = DosLos.store.saveHighScore(state.total);
+      best = DosLos.store.highScore();
+      DosLos.store.sound("win");
+      DosLos.store.vibrate(isRecord ? [40, 60, 40] : 40);
+    }
+
     const head = el("div", "final-head");
     head.appendChild(el("p", "final-label", "Partida terminada"));
     head.appendChild(el("div", "final-total", `★ ${state.total}`));
     head.appendChild(el("p", "final-sub", `en ${ROUNDS} rondas`));
+    head.appendChild(
+      el("p", "final-record", isRecord ? "🏅 ¡Nuevo récord!" : `Tu mejor: ★ ${best}`)
+    );
     root.appendChild(head);
 
     const list = el("div", "final-list");
